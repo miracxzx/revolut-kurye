@@ -1,6 +1,12 @@
 // Revolut Kurye Randevu Sistemi - Uygulama Mantığı (JS)
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Service Worker Kaydı (PWA Yüklenebilirlik için)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .catch(err => console.log('Service Worker Kayıt Hatası:', err));
+    }
+
     // Ekranlar
     const screens = {
         welcome: document.getElementById('welcome-screen'),
