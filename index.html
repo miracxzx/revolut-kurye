@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revolut Kurye Randevu Sistemi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+
+            <!-- EKRAN 1: KARŞILAMA VE DURUM EKRANI -->
+            <div id="welcome-screen" class="screen active">
+                <div class="app-header">
+                    <div class="logo-container">
+                        <span class="revolut-logo">Revolut</span>
+                        <span class="card-badge">Kurye Takip</span>
+                    </div>
+                </div>
+
+                <div class="card-preview-container">
+                    <div class="revolut-card">
+                        <div class="card-logo-overlay">Revolut</div>
+                        <div class="card-chip"></div>
+                        <div class="card-number">•••• •••• •••• 8842</div>
+                        <div class="card-holder">MIRAC ÖZBAĞ</div>
+                    </div>
+                </div>
+
+                <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Revolut Kartınız Yolda!</h2>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+                    Kartınız başarıyla basıldı ve kuryemize teslim edildi. Güvenliğiniz için kartınızı randevu ile şahsen teslim etmemiz gerekiyor.
+                </p>
+
+                <!-- Teslimat Aşamaları -->
+                <div class="delivery-steps">
+                    <div class="step-bar" style="width: 50%;"></div>
+                    <div class="step-node completed">
+                        <div class="step-dot">✓</div>
+                        <span class="step-label">Basıldı</span>
+                    </div>
+                    <div class="step-node completed">
+                        <div class="step-dot">✓</div>
+                        <span class="step-label">Kuryede</span>
+                    </div>
+                    <div class="step-node active">
+                        <div class="step-dot">3</div>
+                        <span class="step-label">Randevu</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-icon-wrapper">📅</div>
+                    <div class="info-content">
+                        <div class="info-title">Randevu Gerekli</div>
+                        <div class="info-text">En erken kurye teslimat tarihi gelecek hafta salı günü <span class="no-wrap">(<strong>16 Haziran 2026</strong>)</span> başlamaktadır.</div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button id="go-to-booking" class="btn btn-primary">
+                        Randevu Zamanı Seç
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- EKRAN 2: TAKVİM VE SAAT SEÇİM EKRANI -->
+            <div id="calendar-screen" class="screen">
+                <div class="app-header">
+                    <button id="back-to-welcome" class="back-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Geri
+                    </button>
+                    <span class="card-badge">Randevu Al</span>
+                </div>
+
+                <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">Teslimat Zamanı</h2>
+                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">Size en uygun gün ve saati seçin.</p>
+
+                <!-- Takvim -->
+                <div class="calendar-section">
+                    <div class="calendar-header">
+                        <span id="month-year" class="calendar-month">Haziran 2026</span>
+                        <div class="calendar-nav">
+                            <button id="prev-month" class="nav-btn">‹</button>
+                            <button id="next-month" class="nav-btn">›</button>
+                        </div>
+                    </div>
+                    <div class="calendar-days">
+                        <span>Pz</span><span>Sa</span><span>Ça</span><span>Pe</span><span>Cu</span><span>Ct</span><span>Pa</span>
+                    </div>
+                    <div id="calendar-days-grid" class="calendar-grid">
+                        <!-- Günler JS ile dolacak -->
+                    </div>
+                </div>
+
+                <!-- Saat Dilimleri -->
+                <div class="time-section">
+                    <div class="section-title">
+                        <span>Teslimat Saati</span>
+                        <span class="recommended-badge">Önerilen Seçildi</span>
+                    </div>
+                    <div id="time-slots-container" class="time-slots">
+                        <!-- Saatler JS ile dolacak -->
+                    </div>
+                </div>
+
+                <!-- Kurye Notu (İsteğe Bağlı) -->
+                <div class="time-section" style="margin-bottom: 24px;">
+                    <div class="section-title">Kuryeye Not (İsteğe Bağlı)</div>
+                    <textarea id="courier-note-input" class="courier-textarea" placeholder="Zile basmayın, güvenlik kulübesine bırakın vb..." maxlength="100"></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button id="confirm-booking" class="btn btn-primary">Randevuyu Onayla</button>
+                </div>
+            </div>
+
+            <!-- EKRAN 3: BAŞARI ONAY EKRANI -->
+            <div id="success-screen" class="screen">
+                <div class="success-wrapper">
+                    <div class="success-icon-box">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h2 class="success-title">Randevunuz Alındı!</h2>
+                    <p class="success-desc">
+                        Kurye randevunuz başarıyla oluşturuldu. Teslimat günü kuryemiz kapınıza gelmeden önce sizi arayacaktır.
+                    </p>
+
+                    <div class="courier-info-card" style="width: 100%; text-align: left;">
+                        <div class="detail-row" style="margin-bottom: 10px;">
+                            <span class="detail-label">Tarih:</span>
+                            <span id="success-date" class="detail-value">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Saat:</span>
+                            <span id="success-time" class="detail-value">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button id="add-to-wallet-btn" class="btn btn-secondary" style="background: #000000; color: #ffffff; border: 1px solid #222; gap: 10px; margin-bottom: 4px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 6H5V6h14v4zm-2 6H7v-2h10v2z"/></svg>
+                        Apple Wallet'a Ekle
+                    </button>
+                    <button id="view-appointment-details" class="btn btn-primary">Randevumu Göster</button>
+                </div>
+            </div>
+
+            <!-- EKRAN 4: RANDEVU TAKİP VE DETAY EKRANI -->
+            <div id="appointment-screen" class="screen">
+                <div class="app-header">
+                    <div class="logo-container">
+                        <span class="revolut-logo">Randevum</span>
+                        <span class="card-badge" style="background: rgba(0,208,126,0.1); color: var(--success-color); border-color: rgba(0,208,126,0.2);">Planlandı</span>
+                    </div>
+                </div>
+
+                <!-- Kurye Sürücü Kartı -->
+                <div class="courier-info-card" style="margin-bottom: 16px;">
+                    <div class="courier-header">
+                        <div class="courier-avatar">SD</div>
+                        <div>
+                            <div class="courier-name">Se**** Do**</div>
+                            <div class="courier-tag">Özel Kurye ★ 4.9</div>
+                        </div>
+                    </div>
+
+                    <div class="courier-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Teslim Alacak</span>
+                            <span class="detail-value">Mirac Özbağ</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Teslimat Günü</span>
+                            <span id="appointed-date" class="detail-value">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Tahmini Varış</span>
+                            <span id="appointed-time" class="detail-value">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Adres</span>
+                            <span class="detail-value" style="text-align: right; max-width: 60%; font-size: 13px; line-height: 1.4;">Geriş Mahallesi Bardakçılar Caddesi No 64A Balıkesir Burhaniye</span>
+                        </div>
+                        <div id="appointed-note-row" class="detail-row" style="border-top: 1px solid var(--border-color); padding-top: 10px; display: none;">
+                            <span class="detail-label">Kurye Notu</span>
+                            <span id="appointed-note" class="detail-value" style="font-style: italic; color: #a5b4fc; max-width: 60%; text-align: right; overflow: hidden; text-overflow: ellipsis;">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dinamik Güvenlik Kodu Modülü -->
+                <div class="security-code-card">
+                    <div class="security-header">
+                        <span class="security-title">Güvenlik Teslimat Kodu</span>
+                        <div class="countdown-circle">
+                            <svg class="progress-ring" width="24" height="24">
+                                <circle class="progress-ring__circle" stroke="#00e1ff" stroke-width="2" fill="transparent" r="10" cx="12" cy="12"/>
+                            </svg>
+                            <span id="pin-countdown" class="countdown-text">30</span>
+                        </div>
+                    </div>
+                    <div id="security-pin" class="pin-display">8 8 4 2</div>
+                    <div class="security-desc">Kartınızı teslim alırken kuryeye bu kodu göstermeniz gerekir. Güvenlik için kod her 30 saniyede bir yenilenir.</div>
+                </div>
+
+                <div class="info-box" style="margin-bottom: 20px;">
+                    <div class="info-icon-wrapper">🔒</div>
+                    <div class="info-content">
+                        <div class="info-title">Güvenlik Doğrulaması</div>
+                        <div class="info-text">Teslimat sırasında kuryeye göstermeniz gereken Revolut uygulama içi kimlik kodunuz kurye vardığında aktif olacaktır.</div>
+                    </div>
+                </div>
+
+                <div class="btn-container" style="gap: 10px;">
+                    <button id="complete-delivery-btn" class="btn btn-primary" style="background: var(--success-gradient); box-shadow: 0 8px 20px rgba(0,208,126,0.3);">Kartımı Teslim Aldım</button>
+                    <button id="reschedule-btn" class="btn btn-secondary">Randevuyu Güncelle</button>
+                    <button id="cancel-btn" class="btn btn-danger">Randevuyu İptal Et</button>
+                </div>
+            </div>
+
+    </div>
+            <!-- Kurye Değerlendirme ve Bahşiş Ekranı (Overlay Modal) -->
+            <div id="rating-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="success-icon-box" style="margin: 0 auto 16px auto; width: 64px; height: 64px; background: var(--success-gradient);">
+                        <svg viewBox="0 0 24 24" style="width: 32px; height: 32px;">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; text-align: center;">Kartınız Teslim Edildi!</h3>
+                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; margin-bottom: 20px;">
+                        Revolut kartınızı başarıyla teslim aldınız. Kuryemiz <strong>Se**** Do**</strong>'u değerlendirmek ister misiniz?
+                    </p>
+
+                    <!-- Yıldızlar -->
+                    <div class="star-rating">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+
+                    <!-- Bahşiş Bölümü -->
+                    <div class="tip-section">
+                        <div class="section-title" style="justify-content: center; font-size: 13px; margin-bottom: 8px;">Kuryeye Bahşiş Gönder (İsteğe Bağlı)</div>
+                        <div class="tip-options">
+                            <button class="tip-btn" data-tip="20">20 ₺</button>
+                            <button class="tip-btn" data-tip="50">50 ₺</button>
+                            <button class="tip-btn" data-tip="100">100 ₺</button>
+                            <button class="tip-btn" data-tip="custom">Diğer</button>
+                        </div>
+                        <input type="number" id="custom-tip-input" class="custom-tip-field" placeholder="Tutar girin (₺)">
+                    </div>
+
+                    <div class="btn-container" style="margin-top: 20px;">
+                        <button id="submit-rating-btn" class="btn btn-primary">Gönder ve Kapat</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Push Bildirim Toast -->
+            <div id="push-toast" class="push-toast-container">
+                <div class="toast-logo">R</div>
+                <div class="toast-body">
+                    <div class="toast-title">Revolut</div>
+                    <div id="toast-message" class="toast-text">Randevunuz onaylandı.</div>
+                </div>
+            </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
