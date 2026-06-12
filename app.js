@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Bildirim gönder
         setTimeout(() => {
-            triggerPushNotification(`Revolut: Kuryeniz Se**** Do** randevunuzu onayladı.`);
+            triggerPushNotification(`Revolut: Kurye randevunuz sistem tarafından otomatik olarak onaylandı.`);
         }, 1200);
     });
 
