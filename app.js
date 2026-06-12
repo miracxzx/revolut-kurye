@@ -123,10 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateObj = new Date(savedDate);
             updateAppointmentDetailsUI(dateObj, savedTime, savedNote || "");
             showScreen('appointment');
-            // Girişte küçük bir bilgi uyarısı verelim
-            setTimeout(() => {
-                triggerPushNotification("Revolut: Bugün kurye teslimat gününüzde güncel kalmak için takip edin.");
-            }, 1000);
         } else {
             showScreen('welcome');
         }
